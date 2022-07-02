@@ -17,7 +17,9 @@ package com.example.android.roomwordssample;
  */
 
 import android.content.Context;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,21 +30,31 @@ import java.util.List;
 
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder> {
+    private OnItemClickListener listener;
 
-    public enum OnItemClickListener {}
 
     class WordViewHolder extends RecyclerView.ViewHolder {
         private final TextView wordItemView;
 
+
         private WordViewHolder(View itemView) {
             super(itemView);
             wordItemView = itemView.findViewById(R.id.textView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION)
+                        listener.onItemClick(mWords.get(position));
+                }
+            });
         }
     }
 
+    // Cached copy of words
     private final LayoutInflater mInflater;
-    private List<Word> mWords = Collections.emptyList(); // Cached copy of words
-
+    private List<Word> mWords = Collections.emptyList();
     WordListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
@@ -57,6 +69,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
     public void onBindViewHolder(WordViewHolder holder, int position) {
         Word current = mWords.get(position);
         holder.wordItemView.setText(current.getWord());
+
     }
 
     void setWords(List<Word> words) {
@@ -73,7 +86,13 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         return mWords.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Word word);
+    }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 }
 
 

@@ -21,6 +21,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -51,6 +52,9 @@ public interface WordDao {
 
     @Delete
     void delete(Word word);
+
+    @Update
+    void update(Word word);
 
     @Query("DELETE FROM word_table")
     void deleteAll();

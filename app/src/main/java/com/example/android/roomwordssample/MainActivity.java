@@ -37,6 +37,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    public static final int EDIT_WORD_ACTIVITY_REQUEST_CODE = 2;
 
     private WordViewModel mWordViewModel;
     private Word pal;
@@ -90,6 +91,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Word deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
+
+        adapter.setOnItemClickListener(new WordListAdapter.OnItemClickListener(){
+            @Override
+            public void onItemClick(Word word) {
+                Intent intent = new Intent(MainActivity.this,AddEditWordActivity.class);
+                intent.putExtra(AddEditWordActivity.EXTRA_ID, word.getWord());
+                intent.putExtra(AddEditWordActivity.EXTRA_WORD, word.getWord());
+                startActivityForResult(intent,EDIT_WORD_ACTIVITY_REQUEST_CODE);
+            }
+        });
 }
 
 
@@ -99,7 +110,21 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Word word = new Word(data.getStringExtra(NewWordActivity.EXTRA_REPLY));
             mWordViewModel.insert(word);
-        } else {
+        } else if (requestCode == EDIT_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            int id = data.getIntExtra(AddEditWordActivity.EXTRA_ID,-1);
+
+            if(id ==-1){
+                Toast.makeText(this,"La palabra no se pudo modificar",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String word1 = data.getStringExtra(AddEditWordActivity.EXTRA_WORD);
+            Word word = new Word(word1);
+            mWordViewModel.update(word);
+
+
+        }
+        else {
             Toast.makeText(
                     getApplicationContext(),
                     R.string.empty_not_saved,
