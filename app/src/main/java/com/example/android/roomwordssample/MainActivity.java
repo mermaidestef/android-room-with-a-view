@@ -95,14 +95,13 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new WordListAdapter.OnItemClickListener(){
             @Override
             public void onItemClick(Word word) {
-                Intent intent = new Intent(MainActivity.this,AddEditWordActivity.class);
-                intent.putExtra(AddEditWordActivity.EXTRA_ID, word.getWord());
-                intent.putExtra(AddEditWordActivity.EXTRA_WORD, word.getWord());
+                Intent intent = new Intent(MainActivity.this,EditWordActivity.class);
+                intent.putExtra(EditWordActivity.EXTRA_ID, word.getId());
+                intent.putExtra(EditWordActivity.EXTRA_WORD, word.getWord());
                 startActivityForResult(intent,EDIT_WORD_ACTIVITY_REQUEST_CODE);
             }
         });
 }
-
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -111,18 +110,17 @@ public class MainActivity extends AppCompatActivity {
             Word word = new Word(data.getStringExtra(NewWordActivity.EXTRA_REPLY));
             mWordViewModel.insert(word);
         } else if (requestCode == EDIT_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            int id = data.getIntExtra(AddEditWordActivity.EXTRA_ID,-1);
+            int id = data.getIntExtra(EditWordActivity.EXTRA_ID,-1);
 
             if(id ==-1){
                 Toast.makeText(this,"La palabra no se pudo modificar",Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            String word1 = data.getStringExtra(AddEditWordActivity.EXTRA_WORD);
+            String word1 = data.getStringExtra(EditWordActivity.EXTRA_WORD);
             Word word = new Word(word1);
+            word.setId(id);
             mWordViewModel.update(word);
-
-
+            Toast.makeText(this, "Word updated", Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(

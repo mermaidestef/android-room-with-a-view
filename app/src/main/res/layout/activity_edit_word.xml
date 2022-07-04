@@ -9,7 +9,7 @@
     <!--tools:context=".AddEditWordActivity"-->
 
     <EditText
-        android:id="@+id/edit_word"
+        android:id="@+id/text_edit_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Word"
@@ -17,7 +17,7 @@
 
 
     <Button
-        android:id="@+id/button_save"
+        android:id="@+id/button_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"

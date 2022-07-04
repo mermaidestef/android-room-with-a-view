@@ -1,77 +1,61 @@
 package com.example.android.roomwordssample;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AddEditWordActivity extends AppCompatActivity {
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class EditWordActivity extends AppCompatActivity {
     public static final String EXTRA_ID =
             "com.codinginflow.architectureexample.EXTRA_ID";
     public static final String EXTRA_WORD =
             "com.codinginflow.architectureexample.EXTRA_WORD";
 
-
     private EditText editTextWord;
+    private Button btn_edit;
 
-
-
-    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_word);
-        editTextWord = findViewById(R.id.edit_word);
-        getSupportActionBar().setHomeAsUpIndicator(R.layout.activity_new_word);
-
+        setContentView(R.layout.activity_edit_word);
+        editTextWord = findViewById(R.id.text_edit_word);
+        btn_edit = findViewById(R.id.button_edit);
 
         Intent intent = getIntent();
-
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Editar Word");
             editTextWord.setText(intent.getStringExtra(EXTRA_WORD));
         } else {
             setTitle("Agregar palabra");
         }
+
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveWord();
+            }
+        });
     }
 
     private void saveWord() {
         String word = editTextWord.getText().toString();
-
         if (word.trim().isEmpty() ) {
             Toast.makeText(this, "Por favor ingrese una palabra", Toast.LENGTH_SHORT).show();
             return;
         }
-
         Intent data = new Intent();
         data.putExtra(EXTRA_WORD, word);
-
-        setResult(RESULT_OK, data);
-        finish();
-    }
-
-    @SuppressLint("ResourceType")
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.layout.content_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.button_save:
-                saveWord();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int id = getIntent().getIntExtra(EXTRA_ID,-1);
+        if (id!=-1){
+            data.putExtra(EXTRA_ID,id);
         }
+        setResult(RESULT_OK, data);
+
+        //Toast.makeText(this, "Course has been saved to Room Database. ", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
