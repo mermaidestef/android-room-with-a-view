@@ -16,7 +16,7 @@ public class EditWordActivity extends AppCompatActivity {
             "com.codinginflow.architectureexample.EXTRA_WORD";
 
     private EditText editTextWord;
-    private Button btn_edit;
+    private Button btn_edit, btn_cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class EditWordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_word);
         editTextWord = findViewById(R.id.text_edit_word);
         btn_edit = findViewById(R.id.button_edit);
+        btn_cancel = findViewById(R.id.button_cancel);
 
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ID)) {
@@ -37,6 +38,13 @@ public class EditWordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveWord();
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EditWordActivity.this, MainActivity.class));
             }
         });
     }
