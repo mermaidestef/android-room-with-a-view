@@ -61,6 +61,14 @@ public class EditWordActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
+        /*btn_load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cargarImagen();
+                dialog.dismiss();
+            }
+        });*/
         dialog.dismiss();
         dialog.show();
     }
