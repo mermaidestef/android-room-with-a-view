@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_margin="16dp">
     <!--tools:context=".AddEditWordActivity"-->
 
     <EditText
@@ -23,7 +23,8 @@
         android:background="@color/colorPrimary"
         android:text="@string/button_save"
         android:textColor="@color/buttonLabel"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start"
+        android:layout_below="@id/text_edit_word"/>
 
     <Button
         android:id="@+id/button_cancel"
@@ -32,8 +33,7 @@
         android:background="@color/colorPrimary"
         android:text="Cancel"
         android:textColor="@color/buttonLabel"
-        android:layout_gravity="end"/>
-
-
-
-</LinearLayout>
+        android:layout_gravity="end"
+        android:layout_below="@id/text_edit_word"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

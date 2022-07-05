@@ -2,9 +2,11 @@ package com.example.android.roomwordssample;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,10 +23,13 @@ public class EditWordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_word);
-        editTextWord = findViewById(R.id.text_edit_word);
-        btn_edit = findViewById(R.id.button_edit);
-        btn_cancel = findViewById(R.id.button_cancel);
+        final Dialog dialog = new Dialog(EditWordActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.activity_edit_word);
+        editTextWord = dialog.findViewById(R.id.text_edit_word);
+        btn_edit = dialog.findViewById(R.id.button_edit);
+        btn_cancel = dialog.findViewById(R.id.button_cancel);
 
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ID)) {
@@ -47,6 +52,8 @@ public class EditWordActivity extends AppCompatActivity {
                 startActivity(new Intent(EditWordActivity.this, MainActivity.class));
             }
         });
+        dialog.dismiss();
+        dialog.show();
     }
 
     private void saveWord() {
