@@ -36,7 +36,7 @@ public class EditWordActivity extends AppCompatActivity {
         btn_edit = dialog.findViewById(R.id.button_edit);
         btn_cancel = dialog.findViewById(R.id.button_cancel);
         btn_load=dialog.findViewById(R.id.btn_image);
-        image = (ImageView) findViewById(R.id.image);
+        image = (ImageView) dialog.findViewById(R.id.image);
 
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ID)) {
@@ -62,13 +62,14 @@ public class EditWordActivity extends AppCompatActivity {
             }
         });
 
-        /*btn_load.setOnClickListener(new View.OnClickListener() {
+        btn_load.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cargarImagen();
-                dialog.dismiss();
+                //dialog.dismiss();
+                dialog.show();
             }
-        });*/
+        });
         dialog.dismiss();
         dialog.show();
     }
