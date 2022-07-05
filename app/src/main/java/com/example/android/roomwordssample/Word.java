@@ -16,8 +16,6 @@ package com.example.android.roomwordssample;
  * limitations under the License.
  */
 
-import android.graphics.Bitmap;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -42,8 +40,11 @@ public class Word {
     private int id;
     @ColumnInfo(name = "word")
     private String mWord;
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    private Bitmap image;
+
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB, name = "image")
+    private byte[] image;
+
+
 
     public Word(@NonNull String word) {
         this.mWord = word;
@@ -62,11 +63,11 @@ public class Word {
         this.id = id;
     }
 
-    public Bitmap getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 }
