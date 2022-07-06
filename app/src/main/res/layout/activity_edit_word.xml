@@ -21,8 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="@string/button_save"
-        android:textColor="@color/buttonLabel"
+        android:text="Save"
+        android:textColor="#D5B3BD"
         android:layout_gravity="start"
         android:layout_below="@id/text_edit_word"/>
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:text="Cancel"
-        android:textColor="@color/buttonLabel"
+        android:textColor="#D5B3BD"
         android:layout_gravity="end"
         android:layout_below="@id/text_edit_word"
         android:layout_alignParentRight="true"/>
@@ -45,15 +45,16 @@
         android:layout_marginTop="20dp"
         app:srcCompat="@android:drawable/ic_menu_camera"
         android:id="@+id/image"/>
+
     <Button
+        android:id="@+id/btn_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/image"
-        android:text="Selecciona imagen"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
-        android:textColor="#ffff"
         android:layout_marginTop="10dp"
-        android:id="@+id/btn_image"/>
+        android:background="@color/colorPrimary"
+        android:text="Seleccionar imagen"
+        android:textColor="#D5B3BD" />
     <!--android:onClick="onclick"-->
 </RelativeLayout>
